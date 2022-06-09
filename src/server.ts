@@ -42,7 +42,7 @@ app.get("/", async (req, res) => {
 //get all words
 app.get("/words", async (req, res) => {
     try {
-        const wordsRes = await client.query(`select * from words`)
+        const wordsRes = await client.query(`select words.*, users.username from words join users on words.user_id = users.id`)
         const wordResWithSynonyms = await addSynonymsToWords(client, wordsRes.rows)
         const wordResWithDefinitions = await addDefinitionsToWords(client, wordResWithSynonyms)
         res.status(200).send(wordResWithDefinitions)
