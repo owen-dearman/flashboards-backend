@@ -13,4 +13,19 @@ export interface fullwordData {
 }
 
 type synOb = { id: number, word: string }
-type meaningOb = { id: number, pos: string, definition: string }
+type meaningOb = { id: number, pos: string, meaning: string }
+
+export interface postedwordData {
+    username: string,
+    word: string,
+    phonetics?: string,
+    freq?: number,
+    syllables?: number,
+    audio?: string,
+    url?: string,
+    synonyms?: string[],
+    meanings?: meaningObNoID[]
+
+}
+
+export type meaningObNoID = { pos: string, meaning: string }
