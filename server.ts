@@ -2,6 +2,7 @@ import { Client } from "pg";
 import { config } from "dotenv";
 import express from "express";
 import cors from "cors";
+import filePath from "./filePath";
 
 config(); //Read .env file lines as though they were env vars.
 
@@ -26,9 +27,10 @@ app.use(cors()) //add CORS support to each following route handler
 const client = new Client(dbConfig);
 client.connect();
 
+//index page
 app.get("/", async (req, res) => {
-    const dbres = await client.query('select * from categories');
-    res.json(dbres.rows);
+    const pathToFile = filePath("./public/index.html");
+    res.sendFile(pathToFile);
 });
 
 
