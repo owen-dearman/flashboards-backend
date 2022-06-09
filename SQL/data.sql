@@ -23,7 +23,7 @@ INSERT INTO meanings (word_id, meaning, pos) VALUES
 
 
 INSERT INTO synonyms (word_id, word) VALUES 
-(1, 'eviscertaion'),
+(1, 'evisceration'),
 (1, 'regicide'),
 (1, 'decapitation'),
 (1, 'capitulation'),
