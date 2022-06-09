@@ -3,6 +3,8 @@ import { config } from "dotenv";
 import express from "express";
 import cors from "cors";
 import filePath from "./filePath";
+import { addSynonymsToWords } from "./addSynonymsToWords";
+import { addDefinitionsToWords } from "./addDefinitionsToWords";
 
 config(); //Read .env file lines as though they were env vars.
 
@@ -32,6 +34,17 @@ app.get("/", async (req, res) => {
     const pathToFile = filePath("./public/index.html");
     res.sendFile(pathToFile);
 });
+
+app.get("/words", async (req, res) => {
+    try {
+        const wordsRes = await client.query(`select * from words`)
+        const wordResWithSynonyms = await addSynonymsToWords(client, wordsRes.rows)
+        const wordResWithDefinitions = await addDefinitionsToWords(client, wordResWithSynonyms)
+        res.status(200).send(wordResWithDefinitions)
+    } catch (error) {
+        res.status(500).send({ error: error, stack: error.stack })
+    }
+})
 
 
 //Start the server on the given port
