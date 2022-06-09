@@ -5,7 +5,7 @@ import cors from "cors";
 import filePath from "./filePath";
 import { addSynonymsToWords } from "./addSynonymsToWords";
 import { addDefinitionsToWords } from "./addDefinitionsToWords";
-import { fullwordData, postedwordData } from "./interfaces";
+import { postedwordData } from "./interfaces";
 import { doesUserExist } from "./existUtils";
 import { doesWordExist } from "./existUtils";
 import { postMeaningsToDB, postSynonymsToDB } from "./postUtils";
