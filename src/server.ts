@@ -78,6 +78,17 @@ app.get("/users", async (req, res) => {
     }
 })
 
+//get one user
+app.get("/users/:user_id", async (req, res) => {
+    try {
+        const id = parseInt(req.params.user_id)
+        const userRes = await client.query(`select * from users where id = $1`, [id])
+        res.status(200).send(userRes.rows)
+    } catch (error) {
+        res.status(500).send({ error: error, stack: error.stack })
+    }
+})
+
 //post new favourite word
 app.post<{}, {}, postedwordData>("/words", async (req, res) => {
     try {
