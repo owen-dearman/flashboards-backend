@@ -56,7 +56,7 @@ app.get("/words/:word_id", async (req, res) => {
     try {
         const id = parseInt(req.params.word_id);
         if (id) {
-            const wordRes = await client.query(`select * from words where id = $1`, [])
+            const wordRes = await client.query(`select * from words where id = $1`, [id])
             const wordResWithSynonyms = await addSynonymsToWords(client, wordRes.rows)
             const wordResWithDefinitions = await addDefinitionsToWords(client, wordResWithSynonyms)
             res.status(200).send(wordResWithDefinitions)
