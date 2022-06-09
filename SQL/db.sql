@@ -16,7 +16,7 @@ CREATE TABLE words(
   	date_added TIMESTAMP DEFAULT current_timestamp,
   	word VARCHAR(50) NOT NULL,
   	phonetics VARCHAR(50),
-  	freq INTEGER,
+  	freq FLOAT,
   	syllables INTEGER,
   	audio VARCHAR(250),
   	url VARCHAR(250),
