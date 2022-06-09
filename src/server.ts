@@ -35,7 +35,7 @@ client.connect();
 
 //index page
 app.get("/", async (req, res) => {
-    const pathToFile = filePath("./public/index.html");
+    const pathToFile = filePath("../public/index.html");
     res.sendFile(pathToFile);
 });
 
