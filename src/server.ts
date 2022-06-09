@@ -35,12 +35,30 @@ app.get("/", async (req, res) => {
     res.sendFile(pathToFile);
 });
 
+//get all words
 app.get("/words", async (req, res) => {
     try {
         const wordsRes = await client.query(`select * from words`)
         const wordResWithSynonyms = await addSynonymsToWords(client, wordsRes.rows)
         const wordResWithDefinitions = await addDefinitionsToWords(client, wordResWithSynonyms)
         res.status(200).send(wordResWithDefinitions)
+    } catch (error) {
+        res.status(500).send({ error: error, stack: error.stack })
+    }
+})
+
+//get one word
+app.get("/words/:word_id", async (req, res) => {
+    try {
+        const id = parseInt(req.params.word_id);
+        if (id) {
+            const wordRes = await client.query(`select * from words where id = $1`, [])
+            const wordResWithSynonyms = await addSynonymsToWords(client, wordRes.rows)
+            const wordResWithDefinitions = await addDefinitionsToWords(client, wordResWithSynonyms)
+            res.status(200).send(wordResWithDefinitions)
+        } else {
+            res.status(400).send({ error: "Incorrect or absent word ID" })
+        }
     } catch (error) {
         res.status(500).send({ error: error, stack: error.stack })
     }
